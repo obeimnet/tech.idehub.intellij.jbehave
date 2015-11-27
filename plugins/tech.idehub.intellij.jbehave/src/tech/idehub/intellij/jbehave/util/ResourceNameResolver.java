@@ -103,8 +103,8 @@ public class ResourceNameResolver {
         String moduleName = module.getModuleFile().getCanonicalPath().replace(module.getName().concat(".iml"), "");
         String itemName =   psiFileSystemItem.getVirtualFile().getCanonicalPath();
 
-        Set<String> excludedResoures = getExcludedFolders(moduleName);
-        if (excludedResoures.contains(itemName)) {
+        Set<String> excludedFolders = getExcludedFolders(moduleName);
+        if (excludedFolders.contains(itemName)) {
             return "";
         }
 
