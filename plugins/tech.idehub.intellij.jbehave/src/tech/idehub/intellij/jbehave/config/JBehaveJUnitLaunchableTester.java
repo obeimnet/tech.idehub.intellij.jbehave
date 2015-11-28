@@ -18,7 +18,7 @@ import static tech.idehub.intellij.jbehave.util.ResourceNameResolver.*;
  */
 public class JBehaveJUnitLaunchableTester {
 
-    static protected boolean canLaunchJBehave(JBehaveJUnitConfiguration.Data configData, Module module, PsiElement receiver)  {
+     protected static boolean canLaunchJBehave(JBehaveJUnitConfiguration.Data configData, Module module, PsiElement receiver)  {
 
 
         StoryPath storyPath = resolve(configData, module, receiver);
@@ -41,7 +41,7 @@ public class JBehaveJUnitLaunchableTester {
     }
 
 
-    static private void containsStoryFile(PsiElement element, String storyFileExtention, List<String> stories)  {
+     private static void containsStoryFile(PsiElement element, String storyFileExtention, List<String> stories)  {
 
         PsiElement[] members = element.getChildren();
         if (members == null || members.length == 0 || !stories.isEmpty()) {

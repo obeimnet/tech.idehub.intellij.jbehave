@@ -61,7 +61,8 @@ public class JBehaveJUnitConfigurationProducer<T extends  JBehaveJUnitConfigurat
             configuration.setName(storyPath.displayName());
             configuration.setMainClass(testClass);
             configuration.setWorkingDirectory("$MODULE_DIR$");
-            configuration.setVMParameters("-ea -D" + storyPathSystemProperty + "=" + storyPath.jvmArgStoryPath());
+                String jvmoptions = "-ea -D" + storyPathSystemProperty + "=" + storyPath.jvmArgStoryPath() + " " + configData.getAdditionalJvmOptions();
+            configuration.setVMParameters(jvmoptions);
 
             this.setupConfigurationModule(context, configuration);
             return true;
@@ -69,8 +70,6 @@ public class JBehaveJUnitConfigurationProducer<T extends  JBehaveJUnitConfigurat
                 exc.printStackTrace();
                 return false;
             }
-
-
     }
 
     @Override
@@ -78,17 +77,15 @@ public class JBehaveJUnitConfigurationProducer<T extends  JBehaveJUnitConfigurat
         Location contextLocation = context.getLocation();
         assert contextLocation != null;
 
-
         if(PatternConfigurationProducer.isMultipleElementsSelected(context)) {
             return false;
         } else {
-            if (configuration.getName().equalsIgnoreCase(ResourceNameResolver.findName(contextLocation.getPsiElement()))) {
-                return true;
-            }
-            Module contextModule = context.getModule();
-            Project project = contextModule.getProject();
+            JBehaveJUnitConfiguration.Data configData = SettingUtil.getSettings(configuration);
+            StoryPath storyPath = ResourceNameResolver.resolve(configData, context.getModule(), contextLocation.getPsiElement());
+            boolean sameModule = configuration.getConfigurationModule().getModule().getName().equals(context.getModule().getName());
+            boolean sameStoryPath =  (storyPath != null && storyPath.displayName().equals(configuration.getName()));
+            return  sameStoryPath && sameModule;
         }
-        return false;
     }
 
     public void onFirstRun(ConfigurationFromContext configuration, ConfigurationContext context, Runnable startRunnable) {

@@ -31,6 +31,7 @@ public class StoryPath {
         if (path.startsWith("/")) {
             path_ = path_.substring(1);
         }
+
         return path_.toLowerCase().replace('/', '.').replace(":", "");
     }
 

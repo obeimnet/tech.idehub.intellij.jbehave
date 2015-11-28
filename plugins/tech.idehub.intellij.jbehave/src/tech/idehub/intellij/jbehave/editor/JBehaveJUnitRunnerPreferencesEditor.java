@@ -23,6 +23,7 @@ public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfigura
     private JRadioButton strategyDefault;
     private JRadioButton strategyModuleRelative;
     private JRadioButton strategyAbsolutePath;
+    private JTextField additionalJvmOptions;
 
     private LabeledComponent<ComponentWithBrowseButton> runnerClassName;
 
@@ -32,7 +33,7 @@ public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfigura
     @Override
     protected void resetEditorFrom(E configuration) {
         JBehaveJUnitConfiguration.Data myData =    SettingUtil.getSettings(configuration);
-        setData(myData);
+        resetEditorWith(myData);
     }
 
     @Override
@@ -44,11 +45,14 @@ public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfigura
         configData.setStoryFileExtention(storyFileExtention.getText());
         configData.setStoryPathSystemProperty(storyPathSystemProperty.getText());
         configData.setStoryFilePathResolutionStrategy(selectedStoryFilePathResolutionStrategy());
+        configData.setAdditionalJvmOptions(additionalJvmOptions.getText());
 
         PropertiesComponent.getInstance(configuration.getProject()).setValue(P_RUNNER_CLASS, configData.getRunnerClassName());
         PropertiesComponent.getInstance(configuration.getProject()).setValue(P_STORY_FILE_EXTENTION, configData.getStoryFileExtention());
         PropertiesComponent.getInstance(configuration.getProject()).setValue(P_STORY_PATH_SYSTEM_PROPERTY, configData.getStoryPathSystemProperty());
         PropertiesComponent.getInstance(configuration.getProject()).setValue(P_STORY_FILE_PATH_RESOLUTION_STRATEGY, configData.getStoryFilePathResolutionStrategy().name());
+        PropertiesComponent.getInstance(configuration.getProject()).setValue(P_ADDITIONAL_JVM_OPTIONS, configData.getAdditionalJvmOptions());
+
     }
 
     @NotNull
@@ -62,13 +66,27 @@ public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfigura
         runnerClassName.setComponent(new TextFieldWithBrowseButton());
     }
 
-    public void setData(JBehaveJUnitConfiguration.Data data) {
+    public void resetEditorWith(JBehaveJUnitConfiguration.Data data) {
         runnerClass.setText(data.getRunnerClassName());
         storyFileExtention.setText(data.getStoryFileExtention());
         storyPathSystemProperty.setText(data.getStoryPathSystemProperty());
+        additionalJvmOptions.setText(data.getAdditionalJvmOptions());
+
+        switch (data.getStoryFilePathResolutionStrategy()) {
+            case DEFAULT:
+                strategyDefault.setSelected(true);
+                break;
+            case MODULE_RELATIVE:
+                strategyModuleRelative.setSelected(true);
+                break;
+            case ABSOLUTE_PATH:
+                strategyAbsolutePath.setSelected(true);
+                break;
+        }
+
     }
 
-    public void getData(JBehaveJUnitConfiguration.Data data) {
+   /* public void getData(JBehaveJUnitConfiguration.Data data) {
         data.setRunnerClassName(runnerClass.getText());
         data.setStoryFileExtention(storyFileExtention.getText());
         data.setStoryPathSystemProperty(storyPathSystemProperty.getText());
@@ -82,7 +100,7 @@ public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfigura
         if (storyPathSystemProperty.getText() != null ? !storyPathSystemProperty.getText().equals(data.getStoryPathSystemProperty()) : data.getStoryPathSystemProperty() != null)
             return true;
         return false;
-    }
+    }*/
 
     private StoryNameResolverType selectedStoryFilePathResolutionStrategy() {
         if (strategyModuleRelative.isSelected()) {
@@ -95,6 +113,5 @@ public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfigura
 
         return StoryNameResolverType.DEFAULT;
     }
-
 }
 

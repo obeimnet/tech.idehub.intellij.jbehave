@@ -8,7 +8,9 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileSystemItem;
 import tech.idehub.intellij.jbehave.config.JBehaveJUnitConfiguration;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,17 +27,18 @@ public class ResourceNameResolver {
     private static final String SRC_TEST_JAVA_FOLDER = "src/test/java";
     private static final String SRC_TEST_RESOURCES_FOLDER = "src/test/resources";
 
-    private static final Set<String> MAVEN_RESOURCES;
+    private static final List<String> MAVEN_RESOURCES;
     static {
-        MAVEN_RESOURCES = new HashSet<>();
-        MAVEN_RESOURCES.add(SRC_FOLDER);
-        MAVEN_RESOURCES.add(SRC_MAIN_FOLDER);
-        MAVEN_RESOURCES.add(SRC_MAIN_JAVA_FOLDER);
+        MAVEN_RESOURCES = new ArrayList<>();
+        //keep insertion order
         MAVEN_RESOURCES.add(SRC_MAIN_RESOURCES_FOLDER);
-
-        MAVEN_RESOURCES.add(SRC_TEST_FOLDER);
-        MAVEN_RESOURCES.add(SRC_TEST_JAVA_FOLDER);
+        MAVEN_RESOURCES.add(SRC_MAIN_JAVA_FOLDER);
+        MAVEN_RESOURCES.add(SRC_MAIN_FOLDER);
         MAVEN_RESOURCES.add(SRC_TEST_RESOURCES_FOLDER);
+        MAVEN_RESOURCES.add(SRC_TEST_JAVA_FOLDER);
+        MAVEN_RESOURCES.add(SRC_TEST_FOLDER);
+        MAVEN_RESOURCES.add(SRC_FOLDER);
+
     }
 
     public static StoryPath resolve(JBehaveJUnitConfiguration.Data configData, Module module,  PsiElement receiver) {
@@ -113,6 +116,9 @@ public class ResourceNameResolver {
             itemName = itemName.replace(mavenResource, "");
         }
 
+        if (itemName.startsWith("/"))  {
+            return itemName.substring(1);
+        }
         return itemName;
     }
 

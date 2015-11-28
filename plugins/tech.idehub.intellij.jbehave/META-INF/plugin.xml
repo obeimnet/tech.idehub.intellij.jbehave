@@ -1,17 +1,20 @@
 <idea-plugin version="2">
   <id>tech.idehub.intellij.jbehave.junit</id>
   <name>Intellij JBehave JUnit Runner</name>
-  <version>1.0</version>
-  <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+  <version>0.0.90</version>
+  <vendor>idehub.tech</vendor>
 
   <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      This plugin allows running JBehave story files as JUnit tests.
+      Further details are in the following link:
+
     ]]></description>
 
-  <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+  <change-notes> <![CDATA[
+    <p>0.0.90: Initial revision </p>
+    <ul>
+      <li>For installation instructions see: </li>
+    </ul>
     ]]>
   </change-notes>
 
@@ -28,7 +31,6 @@
       <runConfigurationProducer implementation="tech.idehub.intellij.jbehave.config.JBehaveJUnitConfigurationProducer"/>
 
       <configurationType implementation="tech.idehub.intellij.jbehave.config.JBehaveJUnitConfigurationType"/>
-
 
   </extensions>
 

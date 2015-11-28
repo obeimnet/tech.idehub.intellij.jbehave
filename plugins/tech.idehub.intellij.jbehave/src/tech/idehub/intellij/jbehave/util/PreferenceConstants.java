@@ -14,6 +14,6 @@ public class PreferenceConstants {
 
 	public static final String P_STORY_FILE_PATH_RESOLUTION_STRATEGY = PluginConstants.PLUGIN_ID.concat("storyFilePathResolutionStrategy");
 
-	public static final String P_STORY_PATH_WITH_LEADING_SLASH =  PluginConstants.PLUGIN_ID.concat("storyPathWithLeadingSlash");
+	public static final String P_ADDITIONAL_JVM_OPTIONS=  PluginConstants.PLUGIN_ID.concat("additionalJvmOptions");
 	
 }

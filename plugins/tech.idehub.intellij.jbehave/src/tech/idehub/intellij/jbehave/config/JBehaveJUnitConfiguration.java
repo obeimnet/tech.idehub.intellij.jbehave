@@ -57,6 +57,9 @@ public class JBehaveJUnitConfiguration extends JUnitConfiguration {
         private String storyPathSystemProperty;
         private StoryNameResolverType storyFilePathResolutionStrategy;
 
+
+        private String additionalJvmOptions;
+
         public String getRunnerClassName() {
             return runnerClassName;
         }
@@ -88,5 +91,15 @@ public class JBehaveJUnitConfiguration extends JUnitConfiguration {
         public void setStoryFilePathResolutionStrategy(StoryNameResolverType storyFilePathResolutionStrategy) {
             this.storyFilePathResolutionStrategy = storyFilePathResolutionStrategy;
         }
+
+        public String getAdditionalJvmOptions() {
+            return additionalJvmOptions;
+        }
+
+        public void setAdditionalJvmOptions(String additionalJvmOptions) {
+            this.additionalJvmOptions = additionalJvmOptions;
+        }
+
+
     }
 }
