@@ -7,13 +7,16 @@
   <description><![CDATA[
       This plugin allows running JBehave story files as JUnit tests.
       Further details are in the following link:
+      https://github.com/obeimnet/tech.idehub.intellij.jbehave
+
+
 
     ]]></description>
 
   <change-notes> <![CDATA[
     <p>0.0.90: Initial revision </p>
     <ul>
-      <li>For installation instructions see: </li>
+      <li>For installation instructions see:  https://github.com/obeimnet/tech.idehub.intellij.jbehave </li>
     </ul>
     ]]>
   </change-notes>
