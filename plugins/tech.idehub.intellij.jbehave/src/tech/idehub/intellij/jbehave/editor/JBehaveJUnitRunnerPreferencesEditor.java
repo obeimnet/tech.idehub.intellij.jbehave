@@ -12,6 +12,7 @@ import tech.idehub.intellij.jbehave.util.SettingUtil;
 
 import javax.swing.*;
 
+import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 import static tech.idehub.intellij.jbehave.util.PreferenceConstants.*;
 
 public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfiguration> extends SettingsEditor<E> {
@@ -41,11 +42,11 @@ public class JBehaveJUnitRunnerPreferencesEditor<E extends JBehaveJUnitConfigura
 
         JBehaveJUnitConfiguration.Data configData = configuration.getData();
 
-        configData.setRunnerClassName(runnerClass.getText());
-        configData.setStoryFileExtention(storyFileExtention.getText());
-        configData.setStoryPathSystemProperty(storyPathSystemProperty.getText());
+        configData.setRunnerClassName(trimToEmpty(runnerClass.getText()));
+        configData.setStoryFileExtention(trimToEmpty(storyFileExtention.getText()));
+        configData.setStoryPathSystemProperty(trimToEmpty(storyPathSystemProperty.getText()));
         configData.setStoryFilePathResolutionStrategy(selectedStoryFilePathResolutionStrategy());
-        configData.setAdditionalJvmOptions(additionalJvmOptions.getText());
+        configData.setAdditionalJvmOptions(trimToEmpty(additionalJvmOptions.getText()));
 
         PropertiesComponent.getInstance(configuration.getProject()).setValue(P_RUNNER_CLASS, configData.getRunnerClassName());
         PropertiesComponent.getInstance(configuration.getProject()).setValue(P_STORY_FILE_EXTENTION, configData.getStoryFileExtention());

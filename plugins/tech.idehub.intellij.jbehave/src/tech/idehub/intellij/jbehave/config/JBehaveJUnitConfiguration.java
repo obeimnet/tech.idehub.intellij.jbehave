@@ -69,7 +69,7 @@ public class JBehaveJUnitConfiguration extends JUnitConfiguration {
         }
 
         public String getStoryFileExtention() {
-            return storyFileExtention;
+            return this.storyFileExtention;
         }
 
         public void setStoryFileExtention(String storyFileExtention) {
@@ -77,7 +77,7 @@ public class JBehaveJUnitConfiguration extends JUnitConfiguration {
         }
 
         public String getStoryPathSystemProperty() {
-            return storyPathSystemProperty;
+            return this.storyPathSystemProperty;
         }
 
         public void setStoryPathSystemProperty(String storyPathSystemProperty) {
@@ -99,7 +99,5 @@ public class JBehaveJUnitConfiguration extends JUnitConfiguration {
         public void setAdditionalJvmOptions(String additionalJvmOptions) {
             this.additionalJvmOptions = additionalJvmOptions;
         }
-
-
     }
 }

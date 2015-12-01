@@ -44,6 +44,7 @@
         </constraints>
         <properties>
           <text value=""/>
+          <toolTipText value="Enter your custom JBehave JUnit runner class."/>
         </properties>
       </component>
       <component id="f0f74" class="javax.swing.JLabel">
