@@ -34,7 +34,7 @@ public class JBehaveJUnitConfigurationProducer<T extends  JBehaveJUnitConfigurat
 
         JBehaveJUnitConfiguration.Data configData = SettingUtil.getSettings(configuration);
 
-        boolean canLaunch = JBehaveJUnitLaunchableTester.canLaunchJBehave(configData, context.getModule(), sourceElement.get());
+        boolean canLaunch = JBehaveJUnitLaunchableTester.canLaunchJBehave(configData, context.getModule(), contextLocation);
         if (!canLaunch) {
             return false;
         }
@@ -50,7 +50,7 @@ public class JBehaveJUnitConfigurationProducer<T extends  JBehaveJUnitConfigurat
                 return false;
             }
 
-            StoryPath storyPath = ResourceNameResolver.resolve(configData, contextModule, sourceElement.get());
+            StoryPath storyPath = ResourceNameResolver.resolve(configData, contextModule, contextLocation);
 
             ModulesScope  modulesScope = new ModulesScope(modules, project);
             PsiClass testClass = JavaPsiFacade.getInstance(configuration.getProject()).findClass(runnerClass, modulesScope);
@@ -81,7 +81,7 @@ public class JBehaveJUnitConfigurationProducer<T extends  JBehaveJUnitConfigurat
             return false;
         } else {
             JBehaveJUnitConfiguration.Data configData = SettingUtil.getSettings(configuration);
-            StoryPath storyPath = ResourceNameResolver.resolve(configData, context.getModule(), contextLocation.getPsiElement());
+            StoryPath storyPath = ResourceNameResolver.resolve(configData, context.getModule(), contextLocation);
             boolean sameModule = configuration.getConfigurationModule().getModule().getName().equals(context.getModule().getName());
             boolean sameStoryPath =  (storyPath != null && storyPath.displayName().equals(configuration.getName()));
             return  sameStoryPath && sameModule;

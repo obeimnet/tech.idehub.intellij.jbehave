@@ -1,5 +1,6 @@
 package tech.idehub.intellij.jbehave.config;
 
+import com.intellij.execution.Location;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
@@ -18,10 +19,10 @@ import static tech.idehub.intellij.jbehave.util.ResourceNameResolver.*;
  */
 public class JBehaveJUnitLaunchableTester {
 
-     protected static boolean canLaunchJBehave(JBehaveJUnitConfiguration.Data configData, Module module, PsiElement receiver)  {
+     protected static boolean canLaunchJBehave(JBehaveJUnitConfiguration.Data configData, Module module, Location contextLocation)  {
 
-
-        StoryPath storyPath = resolve(configData, module, receiver);
+        PsiElement receiver = contextLocation.getPsiElement();
+        StoryPath storyPath = resolve(configData, module, contextLocation);
         if (storyPath == null || storyPath.getPath() == null || storyPath.getPath().isEmpty()) {
             return  false;
         }

@@ -1,7 +1,9 @@
 package tech.idehub.intellij.jbehave.util;
 
+import com.intellij.execution.Location;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -41,8 +43,9 @@ public class ResourceNameResolver {
 
     }
 
-    public static StoryPath resolve(JBehaveJUnitConfiguration.Data configData, Module module,  PsiElement receiver) {
+    public static StoryPath resolve(JBehaveJUnitConfiguration.Data configData, Module module,  Location contextLocation) {
 
+        PsiElement receiver = contextLocation.getPsiElement();
         if (receiver == null
                 ||!receiver.isPhysical()
                 || !receiver.isValid()) {
@@ -54,27 +57,36 @@ public class ResourceNameResolver {
                 ) {
             return null;
         }
-        if (!(receiver instanceof  PsiFileSystemItem)) {
-            return null;
-        }
 
-        PsiFileSystemItem psiFileSystemItem = (PsiFileSystemItem) receiver;
+        String canonicalPath = "";
         boolean isDirectory = false;
-        String fileItemName = "";
 
-        if (receiver instanceof PsiDirectory) {
-            isDirectory = true;
+        VirtualFile virtualFile = contextLocation.getVirtualFile();
+        if (virtualFile == null && !(receiver instanceof  PsiFileSystemItem)) {
+            return  null;
         }
+
+        if (virtualFile != null) {
+            isDirectory = virtualFile.isDirectory();
+            canonicalPath = virtualFile.getCanonicalPath();
+        } else {
+            if (receiver instanceof PsiDirectory) {
+                PsiDirectory directory = (PsiDirectory) receiver;
+                isDirectory = true;
+                canonicalPath = directory.getVirtualFile().getCanonicalPath();
+            }
+        }
+        String fileItemName = "";
 
         switch (configData.getStoryFilePathResolutionStrategy()) {
             case  DEFAULT :
-                fileItemName = defaultStoryFilePathResolutionStrategy(module, psiFileSystemItem);
+                fileItemName = defaultStoryFilePathResolutionStrategy(module, canonicalPath);
                 break;
             case MODULE_RELATIVE:
-                fileItemName = moduleRelativeStoryFilePathResolutionStrategy(module, psiFileSystemItem);
+                fileItemName = moduleRelativeStoryFilePathResolutionStrategy(module, canonicalPath);
                 break;
             case ABSOLUTE_PATH:
-                fileItemName = absolutePathStoryFilePathResolutionStrategy(module, psiFileSystemItem);
+                fileItemName = absolutePathStoryFilePathResolutionStrategy(module, canonicalPath);
                 break;
         }
 
@@ -84,27 +96,15 @@ public class ResourceNameResolver {
         return new StoryPath(fileItemName, isDirectory, configData);
     }
 
-    public static String findName(PsiElement sourceElement) {
-        if (sourceElement instanceof PsiDirectory) {
-            PsiDirectory directory = (PsiDirectory) sourceElement;
-            return directory.getName();
-        } else if (sourceElement instanceof PsiFile) {
-            PsiFile file = (PsiFile) sourceElement;
-            return  file.getName();
-        }
-        return "";
+    private static String moduleRelativeStoryFilePathResolutionStrategy(Module module, String canonicalPath) {
+        String moduleName = module.getModuleFile().getCanonicalPath().replace(module.getName().concat(".iml"), "");
+        return canonicalPath.replace(moduleName, "");
     }
 
-    private static String moduleRelativeStoryFilePathResolutionStrategy(Module module, PsiFileSystemItem psiFileSystemItem) {
-        String moduleName = module.getModuleFile().getCanonicalPath().replace(module.getName().concat(".iml"), "");
-        String itemName =  psiFileSystemItem.getVirtualFile().getCanonicalPath();
-        return itemName.replace(moduleName, "");
-    }
-
-    private static String defaultStoryFilePathResolutionStrategy(Module module, PsiFileSystemItem psiFileSystemItem) {
+    private static String defaultStoryFilePathResolutionStrategy(Module module, String canonicalPath) {
 
         String moduleName = module.getModuleFile().getCanonicalPath().replace(module.getName().concat(".iml"), "");
-        String itemName =   psiFileSystemItem.getVirtualFile().getCanonicalPath();
+        String itemName =   canonicalPath;
 
         Set<String> excludedFolders = getExcludedFolders(moduleName);
         if (excludedFolders.contains(itemName)) {
@@ -122,8 +122,8 @@ public class ResourceNameResolver {
         return itemName;
     }
 
-    private static String absolutePathStoryFilePathResolutionStrategy(Module module, PsiFileSystemItem psiFileSystemItem) {
-        return psiFileSystemItem.getVirtualFile().getCanonicalPath();
+    private static String absolutePathStoryFilePathResolutionStrategy(Module module, String canonicalPath) {
+        return canonicalPath;
     }
 
     private static Set<String> getExcludedFolders(String moduleName) {
