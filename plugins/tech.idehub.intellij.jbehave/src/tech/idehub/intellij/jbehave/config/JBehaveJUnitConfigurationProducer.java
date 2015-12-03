@@ -40,32 +40,32 @@ public class JBehaveJUnitConfigurationProducer<T extends  JBehaveJUnitConfigurat
         }
 
             try {
-            Module contextModule = context.getModule();
-            Project project = contextModule.getProject();
-            Set<Module> modules = new HashSet<>();
-            modules.add(contextModule);
+                Module contextModule = context.getModule();
+                Project project = contextModule.getProject();
+                Set<Module> modules = new HashSet<>();
+                modules.add(contextModule);
 
-            String runnerClass = configData.getRunnerClassName();
-            if (runnerClass == null || runnerClass.trim().isEmpty()) {
-                return false;
-            }
+                String runnerClass = configData.getRunnerClassName();
+                if (runnerClass == null || runnerClass.trim().isEmpty()) {
+                    return false;
+                }
 
-            StoryPath storyPath = ResourceNameResolver.resolve(configData, contextModule, contextLocation);
+                StoryPath storyPath = ResourceNameResolver.resolve(configData, contextModule, contextLocation);
 
-            ModulesScope  modulesScope = new ModulesScope(modules, project);
-            PsiClass testClass = JavaPsiFacade.getInstance(configuration.getProject()).findClass(runnerClass, modulesScope);
+                ModulesScope  modulesScope = new ModulesScope(modules, project);
+                PsiClass testClass = JavaPsiFacade.getInstance(configuration.getProject()).findClass(runnerClass, modulesScope);
 
-            String storyPathSystemProperty = configData.getStoryPathSystemProperty();
+                String storyPathSystemProperty = configData.getStoryPathSystemProperty();
 
-            configuration.setModule(contextModule);
-            configuration.setName(storyPath.displayName());
-            configuration.setMainClass(testClass);
-            configuration.setWorkingDirectory("$MODULE_DIR$");
-                String jvmoptions = "-ea -D" + storyPathSystemProperty + "=" + storyPath.jvmArgStoryPath() + " " + configData.getAdditionalJvmOptions();
-            configuration.setVMParameters(jvmoptions);
+                configuration.setModule(contextModule);
+                configuration.setName(storyPath.displayName());
+                configuration.setMainClass(testClass);
+                configuration.setWorkingDirectory("$MODULE_DIR$");
+                    String jvmoptions = "-ea -D" + storyPathSystemProperty + "=" + storyPath.jvmArgStoryPath() + " " + configData.getAdditionalJvmOptions();
+                configuration.setVMParameters(jvmoptions);
 
-            this.setupConfigurationModule(context, configuration);
-            return true;
+                this.setupConfigurationModule(context, configuration);
+                return true;
           } catch (Exception exc) {
                 exc.printStackTrace();
                 return false;

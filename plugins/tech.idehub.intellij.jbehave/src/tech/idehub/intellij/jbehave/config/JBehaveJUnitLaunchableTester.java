@@ -3,6 +3,7 @@ package tech.idehub.intellij.jbehave.config;
 import com.intellij.execution.Location;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -27,18 +28,22 @@ public class JBehaveJUnitLaunchableTester {
             return  false;
         }
 
+
+
         if (receiver instanceof PsiDirectory) {
             PsiDirectory directory = (PsiDirectory) receiver;
             List<String> stories = new ArrayList<>();
             containsStoryFile(directory, configData.getStoryFileExtention(), stories);
             return !stories.isEmpty();
 
-        } else if (receiver instanceof  PsiFile) {
-            PsiFile psiFile = (PsiFile) receiver;
-            return  psiFile.getName().endsWith(configData.getStoryFileExtention());
+        } else {//if (receiver instanceof  PsiFile) {
+
+            VirtualFile virtualFile =  contextLocation.getOpenFileDescriptor().getFile();
+            //PsiFile psiFile = (PsiFile) receiver;
+            return  virtualFile.getName().endsWith(configData.getStoryFileExtention());
         }
 
-        return false;
+        //return false;
     }
 
 
