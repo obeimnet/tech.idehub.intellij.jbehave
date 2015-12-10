@@ -1,6 +1,5 @@
 language: java
 
-install: mvn clean install -DskipTests=true
 
 script:
   - cd  ./plugins/tech.idehub.intellij.jbehave
