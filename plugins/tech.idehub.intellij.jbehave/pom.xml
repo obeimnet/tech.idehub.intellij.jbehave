@@ -131,7 +131,7 @@
     <profiles>
         <profile>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <id>loc</id>
             <properties>
@@ -141,6 +141,9 @@
 
         <profile>
             <id>ci</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <tools.dir>/home/travis/build/obeimnet/tools</tools.dir>
             </properties>
