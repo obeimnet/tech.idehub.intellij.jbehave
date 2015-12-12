@@ -3,4 +3,4 @@ sudo: true
 
 script:
   - cd  ./plugins/tech.idehub.intellij.jbehave
-  - mvn clean initialize -Pinit,ci -X
+  - mvn  initialize -Pinit,ci -X
