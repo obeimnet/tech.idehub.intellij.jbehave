@@ -148,6 +148,9 @@
 
         <profile>
             <id>init</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
