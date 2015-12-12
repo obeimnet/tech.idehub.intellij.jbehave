@@ -3,4 +3,4 @@ language: java
 
 script:
   - cd  ./plugins/tech.idehub.intellij.jbehave
-  - mvn clean initialize -Pinit,ci
+  - mvn clean initialize -Pinit,ci -X
