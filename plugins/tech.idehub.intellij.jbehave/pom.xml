@@ -44,82 +44,8 @@
             </plugin>
         </plugins>
     </build>
+
     <dependencies>
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>idea</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/lib/idea.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>idea-rt</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/lib/idea_rt.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>intelli-lang</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/plugins/IntelliLang/lib/IntelliLang.jar</systemPath>
-        </dependency>
-
-
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>idea-junit</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/plugins/junit/lib/idea-junit.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>junit-rt</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/plugins/junit/lib/junit-rt.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>openapi</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/lib/openapi.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>idea-util</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/lib/util.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>annotations</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/lib/annotations.jar</systemPath>
-        </dependency>
-
-        <dependency>
-            <groupId>intellij.plugins</groupId>
-            <artifactId>extensions</artifactId>
-            <version>131</version>
-            <scope>system</scope>
-            <systemPath>${intellij.sdk.location}/lib/extensions.jar</systemPath>
-        </dependency>
-
-        <!--   -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -146,5 +72,122 @@
             </properties>
         </profile>
 
+        <profile>
+            <id>intellij-dependency</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>idea</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/lib/idea.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>idea-rt</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/lib/idea_rt.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>intelli-lang</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/plugins/IntelliLang/lib/IntelliLang.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>idea-junit</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/plugins/junit/lib/idea-junit.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>junit-rt</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/plugins/junit/lib/junit-rt.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>openapi</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/lib/openapi.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>idea-util</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/lib/util.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>annotations</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/lib/annotations.jar</systemPath>
+            </dependency>
+
+            <dependency>
+                <groupId>intellij.plugins</groupId>
+                <artifactId>extensions</artifactId>
+                <version>131</version>
+                <scope>system</scope>
+                <systemPath>${intellij.sdk.location}/lib/extensions.jar</systemPath>
+            </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>init</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>download-intellij-idea</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <mkdir dir="${tools.dir}" />
+                                        <get src="${intellij.idea.url}"
+                                             dest="${tools.dir}"
+                                             verbose="true"
+                                             usetimestamp="true"/>
+                                        <unzip  src="${tools.dir}/${intellij.idea.bundle.name}.zip"
+                                                dest="${tools.dir}/${intellij.idea.bundle.name}"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+
+        </profile>
         </profiles>
 </project>
