@@ -142,7 +142,7 @@
         <profile>
             <id>ci</id>
             <properties>
-                <tools.dir> /home/travis/build/obeimnet/tools</tools.dir>
+                <tools.dir>/home/travis/build/obeimnet/tools</tools.dir>
             </properties>
         </profile>
 
