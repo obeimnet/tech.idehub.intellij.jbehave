@@ -1,5 +1,5 @@
 language: java
-
+sudo: true
 
 script:
   - cd  ./plugins/tech.idehub.intellij.jbehave
