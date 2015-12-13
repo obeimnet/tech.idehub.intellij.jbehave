@@ -21,9 +21,9 @@
         <intellij.idea.url>https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/ideaIC/14.1.3/${intellij.idea.bundle.name}.zip</intellij.idea.url>
     </properties>
 
-   <!-- <build>
+    <build>
         <sourceDirectory>${basedir}/src</sourceDirectory>
-        <plugins>
+       <!-- <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -41,8 +41,8 @@
                     <outputDirectory>${basedir}</outputDirectory>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>-->
+        </plugins>-->
+    </build>
 
     <dependencies>
         <dependency>
@@ -157,9 +157,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
-<!--
-                <sourceDirectory>${basedir}/src</sourceDirectory>
--->
+                <!--<sourceDirectory>${basedir}/src</sourceDirectory>-->
                 <directory>${basedir}/src</directory>
                 <plugins>
                     <plugin>
