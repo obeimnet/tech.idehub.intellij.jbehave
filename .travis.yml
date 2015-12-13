@@ -4,4 +4,4 @@ sudo: true
 script:
   - cd  ./plugins/tech.idehub.intellij.jbehave
   - mvn -f pom-init.xml clean initialize -Pci,init
-  - mvn install -Pci
+  - mvn install -Pci -X
