@@ -23,7 +23,7 @@
 
     <build>
         <sourceDirectory>${basedir}/src</sourceDirectory>
-       <!-- <plugins>
+       <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -41,7 +41,7 @@
                     <outputDirectory>${basedir}</outputDirectory>
                 </configuration>
             </plugin>
-        </plugins>-->
+        </plugins>
     </build>
 
     <dependencies>
@@ -151,53 +151,5 @@
             </dependencies>
         </profile>
 
-        <profile>
-            <id>init</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <!--<sourceDirectory>${basedir}/src</sourceDirectory>-->
-                <directory>${basedir}/src</directory>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.8</version>
-                        <executions>
-                            <execution>
-                                <id>download-intellij-idea</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <mkdir dir="${tools.dir}" />
-                                        <get src="${intellij.idea.url}"
-                                             dest="${tools.dir}"
-                                             verbose="true"
-                                             usetimestamp="true"/>
-                                        <unzip  src="${tools.dir}/${intellij.idea.bundle.name}.zip"
-                                                dest="${tools.dir}/${intellij.idea.bundle.name}"/>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.3</version>
-                        <configuration>
-                            <source>1.7</source>
-                            <target>1.7</target>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
-        </profile>
         </profiles>
 </project>
