@@ -11,5 +11,4 @@ deploy:
    file: intellij-jbehave-1.0.0-SNAPSHOT.jar
    skip_cleanup: true
    on:
-     tags: true
      all_branches: true
