@@ -4,6 +4,7 @@ script:
 - cd  ./plugins/tech.idehub.intellij.jbehave
 - mvn -f pom-init.xml clean initialize -Pci,init
 - mvn install -Pci
+
 deploy:
   provider: releases
   api_key:
