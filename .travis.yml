@@ -1,5 +1,5 @@
 language: java
-sudo: true
+sudo: false
 script:
 - cd  ./plugins/tech.idehub.intellij.jbehave
 - mvn -f pom-init.xml clean initialize -Pci,init
