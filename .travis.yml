@@ -4,6 +4,9 @@ script:
 - cd  ./plugins/tech.idehub.intellij.jbehave
 - mvn -f pom-init.xml clean initialize -Pci,init
 - mvn install -Pci
+branches:
+    only:
+    - master
 deploy:
   provider: releases
   api_key:
@@ -12,4 +15,4 @@ deploy:
   skip_cleanup: true
   on:
    tags: true
-   all_branches: true
+   repo: obeimnet/tech.idehub.intellij.jbehave
