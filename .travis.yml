@@ -9,7 +9,7 @@ deploy:
   provider: releases
   api_key:
     secure: I2xQhrjXJAePBGdcz2cywobh30/AH10QMwnS9Wf9U2WTEGs4FNf8rHZdEX5ZH794stUjsPEvA7cleMa/YU+LyUyGZTd4N6ntAY0VU6z22QYh1IwsmpgVszpkoojFCt3UHnRuHiJAm19bg6ushaDEm4K4F/kw1Ogd2ootFAJM5o+mYGrHDooaM8iNBQy0txL2en0bcexUTpjpE3iDBLcJByeeIQF3egXnZIL0dMFpWyvNPxAwnoagI8zNa8jFFFdXlh05rX/cplrl+fnwhdfKEZurtwaZDtxKQ/i1KlQrfSmGKOJMOTfzNbeJ3zreIszESPEFmAYwoIVONFMCMfzJG4aD6CiBUbuxpaT6ErCDC2X0p1kpXxA9hG/GEFlv3Ya9IaePyYA1+LX1PJSvRXRZYmAb/aigd2VkCez0EeTGsB28OuHkASM3Lc1yYaREymQYCltZD3oDx7UlEhRigW8BH1xcJDkjJdEiZ3LVwuEYChb6QcwAueHbXQ8/990PO7pf4YY1M9nAZsc+oLzXfVn5hGjJuvVRuT5ZjITB67rNBQA7gVt9FyoWN6Bwx/AHYwelFmDeQ+pqm6mmrveHHW0bqh1oEhC3NjOr3MOhGyQ1K0vmHQEypN3MTrkk4uh64GyMeOU2TgL9YSl/uTERq/ep657PK6gt2Qu4s04+d+8OVsM=
-  file: tech.idehub.intellij.jbehave.zip
+  file: intellij-jbehave-1.0.0-SNAPSHOT.zip
   skip_cleanup: true
   on:
    tags: true
